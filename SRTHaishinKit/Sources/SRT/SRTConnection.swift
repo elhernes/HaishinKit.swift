@@ -115,6 +115,8 @@ public actor SRTConnection: NetworkConnection {
                             socket = try await listener?.accept()
                             await listener?.stopRunning()
                             listener = nil
+                        case .rendezvous:
+                            break
                         }
                         connected = await socket?.status == .connected
                         continuation.resume()

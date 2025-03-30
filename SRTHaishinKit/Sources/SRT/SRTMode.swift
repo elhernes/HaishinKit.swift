@@ -7,12 +7,16 @@ public enum SRTMode: String, Sendable {
     case caller
     /// The listener mode.
     case listener
+    /// The rendezvous mode.
+    case rendezvous
 
     func host(_ host: String) -> String {
         switch self {
         case .caller:
             return host
         case .listener:
+            return "0.0.0.0"
+        case .rendezvous:
             return "0.0.0.0"
         }
     }
@@ -23,6 +27,9 @@ public enum SRTMode: String, Sendable {
             return srt_connect(u, sockaddr, namelen)
         case .listener:
             return srt_bind(u, sockaddr, namelen)
+        case .rendezvous:
+            return -1
         }
     }
 }
+

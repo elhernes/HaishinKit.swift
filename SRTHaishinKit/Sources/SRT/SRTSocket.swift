@@ -149,6 +149,8 @@ final actor SRTSocket {
                 srt_close(socket)
                 throw makeSocketError()
             }
+        case .rendezvous:
+            break
         }
         await startRunning()
     }
