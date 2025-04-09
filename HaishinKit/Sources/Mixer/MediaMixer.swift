@@ -118,6 +118,7 @@ public final actor MediaMixer {
     private let useManualCapture: Bool
     private lazy var audioIO = AudioCaptureUnit(session)
     private lazy var videoIO = VideoCaptureUnit(session)
+    @MainActor
     private lazy var session = CaptureSession()
     @ScreenActor
     private lazy var displayLink = DisplayLinkChoreographer()
