@@ -32,7 +32,7 @@ public final actor MediaMixer {
     @MainActor
     public var systemPressureCost: Float {
       if let mcs = session.session as? AVCaptureMultiCamSession {
-        return mcs.systemPressure
+        return mcs.systemPressureCost
       }
       return 0.0
     }
