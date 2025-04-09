@@ -29,6 +29,22 @@ public final actor MediaMixer {
     }
     #endif
 
+    @MainActor
+    public var systemPressureCost: Float {
+      if let mcs = session.session as? AVCaptureMultiCamSession {
+        return mcs.systemPressure
+      }
+      return 0.0
+    }
+
+    @MainActor
+    public var hardwareCost: Float {
+      if let mcs = session.session as? AVCaptureMultiCamSession {
+        mcs.hardwareCost
+      }
+      return 0.0
+    }
+
     #if os(iOS) || os(macOS) || os(tvOS)
     /// The device torch indicating wheter the turn on(TRUE) or not(FALSE).
     public var isTorchEnabled: Bool {
