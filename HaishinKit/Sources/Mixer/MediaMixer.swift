@@ -29,7 +29,6 @@ public final actor MediaMixer {
     }
     #endif
 
-    @MainActor
     public var systemPressureCost: Float {
       if let mcs = session.session as? AVCaptureMultiCamSession {
         return mcs.systemPressureCost
@@ -37,7 +36,6 @@ public final actor MediaMixer {
       return 0.0
     }
 
-    @MainActor
     public var hardwareCost: Float {
       if let mcs = session.session as? AVCaptureMultiCamSession {
         mcs.hardwareCost
@@ -118,7 +116,6 @@ public final actor MediaMixer {
     private let useManualCapture: Bool
     private lazy var audioIO = AudioCaptureUnit(session)
     private lazy var videoIO = VideoCaptureUnit(session)
-    @MainActor
     private lazy var session = CaptureSession()
     @ScreenActor
     private lazy var displayLink = DisplayLinkChoreographer()
