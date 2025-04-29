@@ -216,7 +216,7 @@ public actor RTMPStream {
     private var videoTimestamp: RTMPTimestamp<CMTime> = .init()
     private var requestTimeout = RTMPConnection.defaultRequestTimeout
     private var expectedResponse: Code?
-    private var bitrateStorategy: (any HKStreamBitRateStrategy)?
+    private var bitrateStrategy: (any HKStreamBitRateStrategy)?
     private var statusContinuation: AsyncStream<RTMPStatus>.Continuation?
     private(set) var id: UInt32 = RTMPStream.defaultID
     private lazy var incoming = HKIncomingStream(self)
@@ -807,12 +807,12 @@ extension RTMPStream: HKStream {
         }
     }
 
-    public func setBitrateStorategy(_ bitrateStorategy: (some HKStreamBitRateStrategy)?) {
-        self.bitrateStorategy = bitrateStorategy
+    public func setBitrateStrategy(_ bitrateStorategy: (some HKStreamBitRateStrategy)?) {
+        self.bitrateStrategy = bitrateStorategy
     }
 
     public func dispatch(_ event: NetworkMonitorEvent) async {
-        await bitrateStorategy?.adjustBitrate(event, stream: self)
+        await bitrateStrategy?.adjustBitrate(event, stream: self)
         currentFPS = frameCount
         frameCount = 0
         info.update()
