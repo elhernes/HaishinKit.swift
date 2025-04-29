@@ -92,13 +92,13 @@ final actor HKStreamSwitcher {
                 return
             }
             try? await connection.close()
-            logger.info("conneciton.close")
+            logger.info("connection.close")
         case .srt:
             guard let connection = connection as? SRTConnection else {
                 return
             }
             try? await connection.close()
-            logger.info("conneciton.close")
+            logger.info("connection.close")
         }
     }
 }
