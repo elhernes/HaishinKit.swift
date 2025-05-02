@@ -39,9 +39,9 @@ final class CaptureSession {
 
     private(set) var isRunning = false
 
-    var isInturreped: AsyncStream<Bool> {
+    var isInterrupted: AsyncStream<Bool> {
         AsyncStream { continuation in
-            isInturrepedContinutation = continuation
+            isInterruptedContinutation = continuation
         }
     }
 
@@ -108,7 +108,7 @@ final class CaptureSession {
         #endif
     }
 
-    private var isInturrepedContinutation: AsyncStream<Bool>.Continuation? {
+    private var isInterruptedContinutation: AsyncStream<Bool>.Continuation? {
         didSet {
             oldValue?.finish()
         }
@@ -254,13 +254,13 @@ final class CaptureSession {
     @available(tvOS 17.0, *)
     @objc
     private func sessionWasInterrupted(_ notification: Notification) {
-        isInturrepedContinutation?.yield(true)
+        isInterruptedContinutation?.yield(true)
     }
 
     @available(tvOS 17.0, *)
     @objc
     private func sessionInterruptionEnded(_ notification: Notification) {
-        isInturrepedContinutation?.yield(false)
+        isInterruptedContinutation?.yield(false)
     }
     #endif
 }

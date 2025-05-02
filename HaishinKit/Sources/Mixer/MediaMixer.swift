@@ -98,8 +98,8 @@ public final actor MediaMixer {
     }
 
     /// The interrupts events is occured or not.
-    public var isInterputted: AsyncStream<Bool> {
-        session.isInturreped
+    public var isInterrupted: AsyncStream<Bool> {
+        session.isInterrupted
     }
 
     #if os(iOS) || os(macOS)
