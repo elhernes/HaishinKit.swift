@@ -19,7 +19,7 @@ public class MTHKView: MTKView {
     private let muteLayer = CALayer()
     public var videoMute = false {
       didSet {
-        if muteVideo {
+        if videoMute {
           if let superlayer = muteLayer.superlayer {
             muteLayer.removeFromSuperlayer()
             let count = UInt32(superlayer.sublayers?.count ?? 0)
