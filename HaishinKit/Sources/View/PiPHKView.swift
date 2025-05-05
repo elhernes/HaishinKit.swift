@@ -12,7 +12,7 @@ public class PiPHKView: UIView {
     override public class var layerClass: AnyClass {
         AVSampleBufferDisplayLayer.self
     }
-
+    
     /// The view’s Core Animation layer used for rendering.
     override public var layer: AVSampleBufferDisplayLayer {
         super.layer as! AVSampleBufferDisplayLayer
@@ -26,6 +26,22 @@ public class PiPHKView: UIView {
         didSet {
             layer.videoGravity = videoGravity
         }
+    }
+
+    private let muteLayer = CALayer()
+    var muteVideo = false {
+      didSet {
+        if muteVideo {
+          if let superlayer = muteLayer.superlayer {
+            muteLayer.removeFromSuperlayer()
+            let count = UInt32(superlayer.sublayers?.count ?? 0)
+            superlayer.insertSublayer(muteLayer, at:count)
+          }
+
+        } else {
+          muteLayer.removeFromSuperlayer()
+        }
+      }
     }
 
     /// Initializes and returns a newly allocated view object with the specified frame rectangle.
@@ -46,6 +62,7 @@ public class PiPHKView: UIView {
             backgroundColor = Self.defaultBackgroundColor
             layer.backgroundColor = Self.defaultBackgroundColor.cgColor
             layer.videoGravity = videoGravity
+            muteLayer.backgroundColor = Self.defaultBackgroundColor.cgColor
         }
     }
 }
@@ -141,3 +158,4 @@ extension PiPHKView: HKStreamOutput {
         }
     }
 }
+

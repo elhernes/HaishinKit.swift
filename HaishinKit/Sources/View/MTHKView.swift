@@ -16,6 +16,22 @@ public class MTHKView: MTKView {
     private var context: CIContext?
     private var effects: [any VideoEffect] = .init()
 
+    private let muteLayer = CALayer()
+    var muteVideo = false {
+      didSet {
+        if muteVideo {
+          if let superlayer = muteLayer.superlayer {
+            muteLayer.removeFromSuperlayer()
+            let count = UInt32(superlayer.sublayers?.count ?? 0)
+            superlayer.insertSublayer(muteLayer, at:count)
+        }
+
+        } else {
+          muteLayer.removeFromSuperlayer()
+        }
+      }
+    }
+
     /// Initializes and returns a newly allocated view object with the specified frame rectangle.
     public init(frame: CGRect) {
         super.init(frame: frame, device: MTLCreateSystemDefaultDevice())
@@ -37,6 +53,7 @@ public class MTHKView: MTKView {
             if let device {
                 context = CIContext(mtlDevice: device, options: [.cacheIntermediates: false, .name: "MTHKView"])
             }
+            muteLayer.backgroundColor = UIColor.black.cgColor
         }
     }
 
