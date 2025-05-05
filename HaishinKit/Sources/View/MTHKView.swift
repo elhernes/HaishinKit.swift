@@ -17,7 +17,7 @@ public class MTHKView: MTKView {
     private var effects: [any VideoEffect] = .init()
 
     private let muteLayer = CALayer()
-    var muteVideo = false {
+    public var videoMute = false {
       didSet {
         if muteVideo {
           if let superlayer = muteLayer.superlayer {

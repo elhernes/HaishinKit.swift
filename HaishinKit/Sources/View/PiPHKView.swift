@@ -29,7 +29,7 @@ public class PiPHKView: UIView {
     }
 
     private let muteLayer = CALayer()
-    var muteVideo = false {
+    public var videoMute = false {
       didSet {
         if muteVideo {
           if let superlayer = muteLayer.superlayer {
