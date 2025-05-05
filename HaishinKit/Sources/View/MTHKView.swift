@@ -22,9 +22,8 @@ public class MTHKView: MTKView {
         if videoMute {
           if let superlayer = layer.superlayer {
             muteLayer.removeFromSuperlayer()
-            let count = UInt32(superlayer.sublayers?.count ?? 0)
-            superlayer.insertSublayer(muteLayer, at:count)
-        }
+            superlayer.insertSublayer(muteLayer, above:layer)
+          }
 
         } else {
           muteLayer.removeFromSuperlayer()
@@ -53,7 +52,8 @@ public class MTHKView: MTKView {
             if let device {
                 context = CIContext(mtlDevice: device, options: [.cacheIntermediates: false, .name: "MTHKView"])
             }
-            muteLayer.backgroundColor = UIColor.black.cgColor
+            muteLayer.backgroundColor = UIColor.green.cgColor
+            muteLayer.opacity = 1
         }
     }
 

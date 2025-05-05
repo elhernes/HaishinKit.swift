@@ -34,8 +34,7 @@ public class PiPHKView: UIView {
         if videoMute {
           if let superlayer = layer.superlayer {
             muteLayer.removeFromSuperlayer()
-            let count = UInt32(superlayer.sublayers?.count ?? 0)
-            superlayer.insertSublayer(muteLayer, at:count)
+            superlayer.insertSublayer(muteLayer, above:layer)
           }
 
         } else {
@@ -62,7 +61,9 @@ public class PiPHKView: UIView {
             backgroundColor = Self.defaultBackgroundColor
             layer.backgroundColor = Self.defaultBackgroundColor.cgColor
             layer.videoGravity = videoGravity
-            muteLayer.backgroundColor = Self.defaultBackgroundColor.cgColor
+
+            muteLayer.backgroundColor = UIColor.blue.cgColor
+            muteLayer.opacity = 1
         }
     }
 }
