@@ -16,7 +16,7 @@ public class MTHKView: MTKView {
     private var context: CIContext?
     private var effects: [any VideoEffect] = .init()
 
-    public let muteLayer = CALayer()
+    @MainActor public let muteLayer = CALayer()
     public var videoMute = true {
       didSet {
         muteLayer.opacity = videoMute ? 1 : 0
@@ -56,7 +56,6 @@ public class MTHKView: MTKView {
                 context = CIContext(mtlDevice: device, options: [.cacheIntermediates: false, .name: "MTHKView"])
             }
             layer.addSublayer(muteLayer)
-            muteLayer.backgroundColor = UIColor.green.cgColor
             muteLayer.opacity = 1
         }
     }

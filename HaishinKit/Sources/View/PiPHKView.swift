@@ -28,7 +28,7 @@ public class PiPHKView: UIView {
         }
     }
 
-    public let muteLayer = CALayer()
+    @MainActor public let muteLayer = CALayer()
     public var videoMute = true {
       didSet {
         muteLayer.opacity = videoMute ? 1 : 0
@@ -65,7 +65,6 @@ public class PiPHKView: UIView {
             layer.backgroundColor = Self.defaultBackgroundColor.cgColor
             layer.videoGravity = videoGravity
 
-            muteLayer.backgroundColor = UIColor.blue.cgColor // default
             layer.addSublayer(muteLayer)
             muteLayer.opacity = 1
         }
