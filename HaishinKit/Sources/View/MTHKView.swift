@@ -17,17 +17,20 @@ public class MTHKView: MTKView {
     private var effects: [any VideoEffect] = .init()
 
     private let muteLayer = CALayer()
-    public var videoMute = false {
+    public var videoMute = true {
       didSet {
-        if videoMute {
-          if let superlayer = layer.superlayer {
-            muteLayer.removeFromSuperlayer()
-            superlayer.insertSublayer(muteLayer, above:layer)
-          }
+        muteLayer.opacity = videoMute ? 1 : 0
+      }
+    }
 
-        } else {
-          muteLayer.removeFromSuperlayer()
-        }
+    override public func willMove(toWindow newWindow: UIWindow?) {
+      super.willMove(toWindow: newWindow)
+
+      if newWindow == nil {
+        // UIView disappear, don't care
+      } else {
+        // UIView appear
+        muteLayer.frame = self.frame // update muteLayer frame
       }
     }
 
@@ -52,6 +55,7 @@ public class MTHKView: MTKView {
             if let device {
                 context = CIContext(mtlDevice: device, options: [.cacheIntermediates: false, .name: "MTHKView"])
             }
+            layer.addSublayer(muteLayer)
             muteLayer.backgroundColor = UIColor.green.cgColor
             muteLayer.opacity = 1
         }

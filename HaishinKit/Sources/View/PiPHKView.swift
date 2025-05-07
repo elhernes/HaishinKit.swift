@@ -28,18 +28,21 @@ public class PiPHKView: UIView {
         }
     }
 
-    private let muteLayer = CALayer()
-    public var videoMute = false {
+    public let muteLayer = CALayer()
+    public var videoMute = true {
       didSet {
-        if videoMute {
-          if let superlayer = layer.superlayer {
-            muteLayer.removeFromSuperlayer()
-            superlayer.insertSublayer(muteLayer, above:layer)
-          }
+        muteLayer.opacity = videoMute ? 1 : 0
+      }
+    }
 
-        } else {
-          muteLayer.removeFromSuperlayer()
-        }
+    override public func willMove(toWindow newWindow: UIWindow?) {
+      super.willMove(toWindow: newWindow)
+
+      if newWindow == nil {
+        // UIView disappear, don't care
+      } else {
+        // UIView appear, set muteLayer.frame
+        muteLayer.frame = self.frame
       }
     }
 
@@ -62,7 +65,8 @@ public class PiPHKView: UIView {
             layer.backgroundColor = Self.defaultBackgroundColor.cgColor
             layer.videoGravity = videoGravity
 
-            muteLayer.backgroundColor = UIColor.blue.cgColor
+            muteLayer.backgroundColor = UIColor.blue.cgColor // default
+            layer.addSublayer(muteLayer)
             muteLayer.opacity = 1
         }
     }
@@ -159,4 +163,3 @@ extension PiPHKView: HKStreamOutput {
         }
     }
 }
-
