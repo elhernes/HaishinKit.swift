@@ -29,14 +29,14 @@ public final actor MediaMixer {
     }
     #endif
 
-    nonisolated public var systemPressureCost: Float {
+    public var systemPressureCost: Float {
       if let mcs = session.session as? AVCaptureMultiCamSession {
         return mcs.systemPressureCost
       }
       return 0.0
     }
 
-    nonisolated public var hardwareCost: Float {
+    public var hardwareCost: Float {
       if let mcs = session.session as? AVCaptureMultiCamSession {
         mcs.hardwareCost
       }
@@ -118,10 +118,7 @@ public final actor MediaMixer {
     private lazy var audioIO = AudioCaptureUnit(session)
     private lazy var videoIO = VideoCaptureUnit(session)
 
-    // this is nonisolated so we can get hardware and system costs
-    // it's private, so any risky access to it is already mitigated by
-    // being called from isolated methods
-    nonisolated private lazy var session = CaptureSession()
+    private lazy var session = CaptureSession()
 
     @ScreenActor
     private lazy var displayLink = DisplayLinkChoreographer()
